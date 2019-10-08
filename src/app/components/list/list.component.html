@@ -1,0 +1,10 @@
+<ul class="list">
+    <li *ngFor="let item of list" (click)="select(item)" 
+        class="list__item" 
+        [ngClass]="{'list__item--selected': active && item.id === active.id}">
+        <div class="list__header">{{ item.name }}</div>
+        <div>
+            <span *ngFor="let flag of item.flags" class="list__flag">{{ flag }}</span>
+        </div>
+    </li>
+</ul>

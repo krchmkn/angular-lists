@@ -1,0 +1,43 @@
+<div class="column">
+    <div class="filter-box">
+        <label class="filter-box__item">
+            <input type="checkbox" [checked]="true" 
+                (change)="sortAlphabetical($event)" /> По алфавиту
+        </label>
+        <label class="filter-box__item">
+            <input type="search" placeholder="Поиск" 
+                (input)="filterByName($event)" 
+                class="filter-box__input" />
+        </label>
+    </div>
+    <app-list *ngIf="listLeft" 
+        [list]="listLeft" 
+        [active]="currentItem" 
+        (selected)="selectItem($event)"
+    ></app-list>
+</div>
+
+<div class="column">
+    <div *ngIf="currentItem; else elseBlock" class="current">
+        <div class="current__name">{{ currentItem.name }}</div>
+        <div *ngFor="let flag of currentItem.flags" class="current__flag">{{ flag }}</div>
+    </div>
+    <ng-template #elseBlock>
+        <div class="current">Пусто...</div>
+    </ng-template>
+</div>
+
+<div class="column">
+    <div *ngIf="filters" class="filter-box">
+        <label *ngFor="let filter of filters" class="filter-box__item">
+            <input type="checkbox" 
+                [checked]="activeFilters.indexOf(filter) !== -1" 
+                (change)="filterByProps(filter)" /> {{ filter }}
+        </label>
+    </div>
+    <app-list *ngIf="listRight" 
+        [list]="listRight" 
+        [active]="currentItem" 
+        (selected)="selectItem($event)"
+    ></app-list>
+</div>
